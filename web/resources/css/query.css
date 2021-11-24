@@ -1,0 +1,215 @@
+
+.body {
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+#intro{
+    border-right: solid 10px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    color: white;
+    margin:0 auto;
+}
+
+/* Animation */
+#intro{
+    animation: animated-text 4s steps(29, end) 1s 1 normal both, animated-cursor 600ms steps(29,end) infinite;
+}
+
+/*
+    text animation
+ */
+@keyframes animated-text {
+    from{width: 0;}
+    to{width: 1000px;}
+}
+
+/*
+    cursor animation
+ */
+@keyframes animated-cursor {
+    from{border-right-color: white;}
+    to{border-right-color: transparent;}
+}
+
+button {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+#header {
+    background-color: #596275;
+    height: 15px;
+}
+
+#main {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+#left {
+    width: 25%;
+}
+
+.CodeMirror {
+    margin-top: 5px !important;
+    margin-bottom: 20px !important;
+}
+
+#center {
+
+}
+
+#choose-y {
+    margin: 0 3px;
+    padding: 5px;
+}
+
+.y-button-line{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.r-button-line{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.button-group {
+    margin-top: 15px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.button-group .button {
+    display: flex;
+    color: white;
+    background-color: #596275;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+}
+
+
+
+.button.checked {
+    background-color: #303952;
+}
+
+.button-group .button:first-child {
+    border-radius: .5rem 0 0 .5rem;
+}
+
+.button-group .button:last-child {
+    border-radius: 0 .5rem .5rem 0;
+}
+
+#right {
+    width: 25%;
+}
+
+.content {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.lint-error {
+    font-size: 70%;
+    background: #ffa;
+    color: #a00;
+    padding: 2px 5px 3px;
+}
+
+.lint-error-icon {
+    color: white;
+    background-color: red;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 0 3px;
+    margin-right: 7px;
+}
+textarea{
+    resize: none;
+    width: 60px;
+    height: 30px;
+    font-size: 18px;
+    text-align: center;
+    text-align-last: center;
+    -moz-text-align-last: center;
+}
+
+.y-input{
+
+}
+
+.r-commandLink{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+/*
+#clear-button{
+    position: absolute;
+    top: 620px;
+    left: 160px;
+}*/
+
+
+.table {
+    margin-top: 20px;
+    overflow: auto;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table thead, .table tbody {
+    display: block;
+    width: 100%;
+}
+
+.table tbody {
+    overflow: auto;
+    height: 400px;
+}
+
+th, td {
+    text-align: center;
+    border: 1px solid black;
+    padding: 15px;
+    width: 165px;
+}
+
+th {
+    background-color: #ebebeb;
+}
+
+div p {
+    text-align: center;
+    font-size: larger;
+}
+
+.row:hover {
+    cursor: pointer;
+    background-color: lightskyblue !important;
+    color: white;
+    transition: 0.3s;
+}
+
+.row:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.error {
+    color: red;
+    /*transition: opacity 2s ease-in;*/
+}

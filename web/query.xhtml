@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: ndwannafly
+  Date: 17.11.2021
+  Time: 4:08
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <script type="text/javascript" charset="UTF-8"
+            src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css"/>
+    <h:outputStylesheet library="css" name="query.css"></h:outputStylesheet>
+    <h:outputStylesheet name="assets/codemirror-5.62.2/lib/codemirror.css"></h:outputStylesheet>
+    <h:outputScript library="js" name="index.js"></h:outputScript>
+    <h:outputScript name="assets/codemirror-5.62.2/lib/codemirror.js"></h:outputScript>
+    <h:outputScript name="assets/codemirror-5.62.2/addon/selection/active-line.js"></h:outputScript>
+    <h:outputScript name="assets/codemirror-5.62.2/mode/javascript/javascript.js"></h:outputScript>
+    <title>Query</title>
+</h:head>
+
+<h:body styleClass="body" >
+
+    <div id="header" style="height: 40px; padding-top: 10px">
+        <h3 id="intro">
+            Hi, I'm Nguyen Ngoc Duc! I'm currently flutter developer and competitive programmer
+        </h3>
+    </div>
+    <div id="main" style="margin-top: 15px">
+        <div id="left">
+            <h:form>
+                <h:commandLink value="Back" action="index" style="width: 80px; height: 30px" ></h:commandLink>
+            </h:form>
+            <div id="advanced-content">
+                <label for="current">Current points</label>
+                <h:inputTextarea id="current"></h:inputTextarea>
+
+            </div>
+            <h2>Form</h2>
+            <h:form id="main-form">
+                <p>Point X</p>
+                <h:selectOneRadio value="#{mainFormBean.newQuery.x}" id="x-input" required="true" requiredMessage="Point X is required" >
+                    <f:selectItem itemLabel="-4" itemValue="-4.0"/>
+                    <f:selectItem itemLabel="-3" itemValue="-3.0"/>
+                    <f:selectItem itemLabel="-2" itemValue="-2.0"/>
+                    <f:selectItem itemLabel="-1" itemValue="-1.0"/>
+                    <f:selectItem itemLabel="0" itemValue="0.0"/>
+                    <f:selectItem itemLabel="1" itemValue="1.0"/>
+                    <f:selectItem itemLabel="2" itemValue="2.0"/>
+                    <f:selectItem itemLabel="3" itemValue="3.0"/>
+                    <f:selectItem itemLabel="4" itemValue="4.0"/>
+                </h:selectOneRadio>
+
+                <br></br>
+
+                <p>Point Y</p>
+                <div style="display: flex; justify-content: center; width: 100%">
+                    <p:inputText id="y-input" value="#{mainFormBean.newQuery.y}" maxlength="5" required="true"
+                        requiredMessage="Enter Y!" converterMessage="Y is a number in the range [-5,5]!"
+                                 validatorMessage="Y must be in the range [-5,5]!"
+                    >
+                        <f:validator validatorId="validateY"/>
+                        <f:ajax event="change" render="messageY"/>
+                    </p:inputText>
+                </div>
+                <h:message for="y-input" id="messageY"/>
+                <br></br>
+
+<!--                <h:outputText value="Current R = "></h:outputText>
+                <h:outputText id="r-input" value="#{mainFormBean.newQuery.r}"></h:outputText>-->
+                <br></br>
+                <p>Choose R:</p>
+                <h:panelGrid columns="1" style="margin-bottom: 10px">
+                    <p:inputText id="r_chooser" value="#{mainFormBean.newQuery.r}"
+                                 converterMessage="R должен быть числом, лежащим в промежутке (1; 4)!"
+                                 validatorMessage="R должен лежать в промежутке(1; 4)!">
+                        <f:validator
+                                validatorId="validateR"/>
+                        <f:ajax event="change" render="messageR"/>
+                    </p:inputText>
+                    <h:message id="messageR" for="r_chooser"/>
+                    <p:slider for="r_chooser" minValue="1.25" maxValue="3.75" step="0.25" onSlideEnd="updateR()"/>
+                </h:panelGrid>
+                <div style="width: 100%; display: flex; justify-content: center">
+                    <p:commandButton id="submit-button" action="#{mainFormBean.submit()}" value="submit" update="resultTable" style="width: 80px; height: 30px; margin-top: 30px"/>
+                </div>
+            </h:form>
+            <h:form>
+                <div style="width: 100%; display: flex; justify-content: center; margin-top: 30px">
+                    <p:commandButton action="#{mainFormBean.clear()}" value="Clear" style="width: 80px; height: 30px" update="resultTable" />
+                </div>
+            </h:form>
+            <h:form id="hidden-form">
+                <h:inputHidden value="#{mainFormBean.newQuery.x}" id="x_hidden_chooser"/>
+                <h:inputHidden value="#{mainFormBean.newQuery.y}" id="y_hidden_chooser"/>
+                <h:inputHidden value="#{mainFormBean.newQuery.r}" id="r_hidden_chooser"/>
+                <p:commandButton id="hidden-submit" action="#{mainFormBean.submit()}" style="opacity: 0" />
+            </h:form>
+        </div>
+        <div id="center">
+            <div id="box1" class="jxgbox" style="width: 700px; height: 700px;"></div>
+            <h:dataTable id="resultTable" var="q" value="#{mainFormBean.dataBaseWorker.queries}" rowClasses="row" styleClass="table">
+                <h:column>
+                    <f:facet name="header">Point x</f:facet>
+                    #{q.x}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Point y</f:facet>
+                    #{q.y}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Radius</f:facet>
+                    #{q.r}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Result (Point lies inside the area?)</f:facet>
+                    #{q.hit}
+                </h:column>
+                <!--            <h:column>
+                                <f:facet name="header">Execution time</f:facet>
+                                #{query.executionTime}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Creation time</f:facet>
+                                <h:outputText value="#{query.creationTime}">
+                                    <f:convertDateTime pattern="hh:mm:ss"></f:convertDateTime>
+                                </h:outputText>
+                            </h:column>-->
+            </h:dataTable>
+        </div>
+        <div id="right">
+            <div class="button-group">
+                <button class="button checked" id="overview">Overview</button>
+                <button class="button" id="constraint">Constraint</button>
+                <button class="button" id="notation">Notation</button>
+            </div>
+            <div class="content" id="notationContent" style="display: none">
+                <p>Click on the plane to show the point. There are 2 cases:</p>
+                <ul>
+                    <li>Red point - the point is outside the chosen area.</li>
+                    <li>Green point - the point is in the chosen area.</li>
+                </ul>
+            </div>
+
+            <div class="content" id="constraintContent" style="display: none">
+                <p>Constraints:</p>
+                <ul>
+                    <li>X: (-4, -3, -2, -1, 0, 1, 2, 3, 4)</li>
+                    <li>Y: [-5, 5]</li>
+                    <li>R: {1, 1.5, 2, 2.5, 3}</li>
+                </ul>
+            </div>
+
+            <div class="content" id="overviewContent">
+                <p>Author: Nguyen Ngoc Duc</p>
+                <p>Group: P3233</p>
+                <p>Github: <a href="https://github.com/ndwannafly">github.com/ndwannafly</a></p>
+                <p>Contact:</p>
+                <ul>
+                    <li>
+                        Gmail:
+                        <a href="mailto:ngocducforwork@gmail.com">ngocducforwork@gmail.com</a>
+                    </li>
+                    <li>
+                        Telegram:
+                        <a href="https://t.me/nd_wannafly">
+                            @nd_wannafly
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</h:body>
+
+</html>

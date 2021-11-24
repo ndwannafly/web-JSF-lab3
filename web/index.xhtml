@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: ndwannafly
+  Date: 17.11.2021
+  Time: 3:43
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:comp="http://java.sun.com/jsf/composite/components">
+<h:head>
+    <title>Home page</title>
+    <h:outputStylesheet library="css" name="index.css"></h:outputStylesheet>
+</h:head>
+
+<h:body styleClass="body">
+    <div class="bg-image"></div>
+
+    <h:panelGrid id="table" columns="1" cellpadding="5" cellspacing="0" styleClass="bg-text">
+        <f:facet name="header">
+            <h:outputText value="Student's information" ></h:outputText>
+        </f:facet>
+        <h:panelGroup>
+            <comp:intro author="Nguyen Ngoc Duc" group="P3233" variant="33630"></comp:intro>
+            <br></br>
+            <div id="clock"></div>
+        </h:panelGroup>
+    </h:panelGrid>
+    <h:form>
+        <h:commandLink value="Next" action="query" styleClass="btn"></h:commandLink>
+    </h:form>
+    <h:outputScript library="js" name="clock.js"></h:outputScript>
+</h:body>
+
+</html>

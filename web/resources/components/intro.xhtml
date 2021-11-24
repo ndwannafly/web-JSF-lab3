@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: ndwannafly
+  Date: 17.11.2021
+  Time: 3:58
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+<h:head>
+    This is introduction of author
+</h:head>
+
+<h:body>
+
+    <composite:interface>
+        <composite:attribute name="author" required="true"></composite:attribute>
+        <composite:attribute name="group" required="true"></composite:attribute>
+        <composite:attribute name="variant" required="true"></composite:attribute>
+    </composite:interface>
+
+    <composite:implementation>
+        <h:panelGroup>
+            <h:outputText value="Name: #{cc.attrs.author}"></h:outputText>
+            <br></br>
+            <h:outputText value="Group: #{cc.attrs.group}"></h:outputText>
+            <br></br>
+            <h:outputText value="Variant: #{cc.attrs.variant}"></h:outputText>
+            <br></br>
+        </h:panelGroup>
+    </composite:implementation>
+</h:body>
+
+</html>
