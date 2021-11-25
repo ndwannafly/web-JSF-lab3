@@ -29,6 +29,8 @@ public class DataBaseWorker implements Serializable {
     public void add(Query query){
         queries.add(query);
         saver.addPoint(query.getX(), query.getY(), query.getR(), query.isHit());
+        System.out.println("added");
+        System.out.println(queries.size());
     }
 
     public void clear(){
@@ -40,7 +42,9 @@ public class DataBaseWorker implements Serializable {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM results");
+            int cnt = 0;
             while(resultSet.next()){
+                ++cnt;
                 Query query = new Query();
                 query.setX(resultSet.getDouble(1));
                 query.setY(resultSet.getDouble(2));
@@ -48,6 +52,7 @@ public class DataBaseWorker implements Serializable {
                 query.setHit(resultSet.getBoolean(4));
                 this.queries.add(query);
             }
+            System.out.println("cnt: " + cnt);
         } catch (SQLException e) {
             e.printStackTrace();
         }

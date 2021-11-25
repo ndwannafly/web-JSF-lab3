@@ -53,9 +53,8 @@ public class MainFormBean implements Serializable {
         return "query.xhtml?faces-redirect=true";
     }
 
-    public String clear(){
+    public void clear(){
         this.dataBaseWorker.clear();
-        return "query.xhtml?faces-redirect=true";
     }
 
     public String backToHome(){

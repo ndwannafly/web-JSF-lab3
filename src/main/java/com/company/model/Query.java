@@ -5,10 +5,11 @@ import java.io.Serializable;
 public class Query implements Serializable {
     private double x;
     private double y;
-    private double r = 3;
+    private double r;
     private boolean hit;
 
-    public Query(){}
+    public Query(){
+    }
 
     public Query(double x, double y, double r){
         this.x = x;

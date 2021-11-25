@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: ndwannafly
+  Date: 25.11.2021
+  Time: 0:41
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:head>
+    <title>Result</title>
+    <h:outputStylesheet library="css" name="respond.css"></h:outputStylesheet>
+</h:head>
+<h:body styleClass="body">
+    <div class="header">
+        <h2>Queries Result</h2>
+    </div>
+    <div>
+        <p class="col-75 error" id="x-err"></p>
+    </div>
+    <div>
+        <h:dataTable id="resultTable" var="q" value="#{mainFormBean.dataBaseWorker.queries}" rowClasses="row" styleClass="table" >
+            <h:column>
+                <f:facet name="header">Point x</f:facet>
+                #{q.x}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Point y</f:facet>
+                #{q.y}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Radius</f:facet>
+                #{q.r}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Result (Point lies inside the area?)</f:facet>
+                #{q.hit}
+            </h:column>
+<!--            <h:column>
+                <f:facet name="header">Execution time</f:facet>
+                #{q.executionTime}
+            </h:column>-->
+<!--            <h:column>
+                <f:facet name="header">Creation time</f:facet>
+                <h:outputText value="#{q.creationTime}">
+                    <f:convertDateTime pattern="hh:mm:ss"></f:convertDateTime>
+                </h:outputText>
+            </h:column>-->
+        </h:dataTable>
+    </div>
+    <div id="wrapper">
+<!--        <h:form>
+            <h:commandButton action="#{mainFormBean.clear()}" value="Clear" styleClass="back-btn"></h:commandButton>
+        </h:form>-->
+        <h:form>
+            <h:commandButton action="#{mainFormBean.backToHome()}" value="Back" styleClass="back-btn"></h:commandButton>
+        </h:form>
+    </div>
+</h:body>
+</html>

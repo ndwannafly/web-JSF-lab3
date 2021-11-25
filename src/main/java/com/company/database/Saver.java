@@ -29,10 +29,10 @@ public class Saver {
                 createTable();
             }
             PreparedStatement statement = connection.prepareStatement("INSERT INTO results(x,y,r,res) values(?, ?, ?, ?)");
-            statement.setDouble(1,x);
-            statement.setDouble(2,y);
-            statement.setDouble(3,r);
-            statement.setBoolean(4,result);
+            statement.setDouble(1, x);
+            statement.setDouble(2, y);
+            statement.setDouble(3, r);
+            statement.setBoolean(4, result);
             statement.executeUpdate();
             statement.close();
         } catch (SQLException sqlException) {
